@@ -60,6 +60,7 @@ module.exports.createUser = (req, res, next) => {
       res.send({ data: user });
     })
     .catch((err) => {
+      console.log(err.name);
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные'));
       } else if (err.code === 11000) {
@@ -106,6 +107,7 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
+      console.log(user._id);
       // аутентификация успешна! пользователь в переменной user
       const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
       res.send({ token });

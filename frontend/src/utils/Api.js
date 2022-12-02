@@ -95,7 +95,7 @@ class Api {
 
 
 const api = new Api({
-  baseUrl: 'https://mesto.alkorotkovv.nomoredomains.club',
+  baseUrl: 'https://api.mesto.alkorotkovv.nomoredomains.club',
   headers: {
     //authorization: `Bearer ${localStorage.getItem('token')}`,
     authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzg4ODMzMDYwZGZiYzU4ZWQ2MDYwYjUiLCJpYXQiOjE2Njk5NjUxOTgsImV4cCI6MTY3MDU2OTk5OH0.IEZ0C-WTdQzhJg0JU6Pb5xZeXwdMfwRS5kEGDa3yNac`,
