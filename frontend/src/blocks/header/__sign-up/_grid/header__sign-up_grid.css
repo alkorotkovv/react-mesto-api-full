@@ -1,0 +1,6 @@
+@media (max-width: 600px) {
+  .header__sign-up_grid {
+    width: 100%;
+    text-align: center;
+	}
+}

@@ -1,0 +1,19 @@
+.header__logo {
+  width: 142px;
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .header__logo {
+		width: 104px;
+	}
+}
+
+@media (max-width: 600px) {
+  .header__logo {
+		width: 104px;
+    grid-area: logo;
+    justify-self: left;
+    align-self: center;
+	}
+}
