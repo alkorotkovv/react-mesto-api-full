@@ -16,8 +16,6 @@ class Api {
 
   //Метод получения данных пользователя
   getUserInfo() {
-    console.log("getUserInfo")
-    console.log(localStorage.getItem('token'))
     return fetch(this._baseUrl + '/users/me', {
     method: 'GET',
     headers: {

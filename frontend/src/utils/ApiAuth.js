@@ -55,7 +55,7 @@ class ApiAuth {
 
 
 const apiAuth = new ApiAuth({
-  baseUrl: 'http://api.mesto.alkorotkovv.nomoredomains.club',
+  baseUrl: 'https://api.mesto.alkorotkovv.nomoredomains.club',
   headers: {
     'Content-Type': 'application/json'
   }

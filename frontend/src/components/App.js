@@ -52,15 +52,10 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      console.log("делаем запрос для получения всей информации")
-      console.log(localStorage.getItem('token'))
       Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userInfo, initialCards]) => {
-        //console.log(userInfo)
-        console.log(initialCards)
         setCurrentUser(userInfo.data);
         setCards(initialCards.data);
-        console.log(currentUser);
       })
       .catch((err) => {
         console.log(err);
@@ -78,13 +73,9 @@ function App() {
   }
 
   function checkToken() {
-    console.log("чектокен")
     if (localStorage.getItem('token')) {
-      console.log("checkToken")
-      console.log(localStorage.getItem('token'))
       apiAuth.getUserByToken(localStorage.getItem('token'))
         .then(res => {
-          console.log(res);
           if (res.data) {
             const {_id, email} = res.data;
             setLoggedIn(true);
@@ -96,7 +87,6 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log("shlyapa ");
           err.then((data) => {
             console.log(data);
           })
@@ -108,7 +98,6 @@ function App() {
     const isLiked = card.likes.some(person => person === currentUser._id);
     api.toggleLikeCard(card, isLiked)
       .then((newCard) => {
-        console.log(newCard)
         setCards(cards.map((c) => c._id === card._id ? newCard.data : c));
       })
       .catch((err) => {
@@ -182,7 +171,6 @@ function App() {
   function handleAddPlace(placeObject) {
     api.addCard(placeObject)
       .then((newCard) => {
-        console.log(newCard)
         setCards([newCard.data, ...cards]);
         setIsAddPlacePopupOpen(false);
       })
@@ -193,10 +181,8 @@ function App() {
 
   //Обработчик сабмита формы входа
   function handleLoginSubmit(email, password) {
-    console.log("логинимся")
     apiAuth.loginUser(email, password)
       .then((res) => {
-        console.log(res)
         if (res.token) {
           localStorage.setItem('token', res.token);
           setEmail(email);
@@ -209,10 +195,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log("че то при логине случилось");
-        //console.log(err);
         err.then((data) => {
-          console.log(data);
           handleTooltipDisplay(data.message, false);
           setIsInfoTooltipPopupOpen(true);
         })
@@ -239,7 +222,6 @@ function App() {
       .catch((err) => {
         //console.log(err);
         err.then((data) => {
-          console.log(data);
           handleTooltipDisplay(data.message, false);
           setIsInfoTooltipPopupOpen(true);
         })
