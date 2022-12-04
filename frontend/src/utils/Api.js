@@ -3,7 +3,7 @@ class Api {
   constructor(options)
   {
     this._baseUrl = options.baseUrl;
-    this._headers = options.headers;
+    //this._headers = options.headers;
   };
 
   //Метод реакция на результат запроса
@@ -16,9 +16,14 @@ class Api {
 
   //Метод получения данных пользователя
   getUserInfo() {
+    console.log("getUserInfo")
+    console.log(localStorage.getItem('token'))
     return fetch(this._baseUrl + '/users/me', {
     method: 'GET',
-    headers: this._headers
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json'
+    }
     })
     .then(res => this._checkResult(res))
   };
@@ -27,7 +32,10 @@ class Api {
   getInitialCards() {
     return fetch(this._baseUrl + '/cards', {
       method: 'GET',
-      headers: this._headers
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
     })
     .then(res => this._checkResult(res))
   };
@@ -36,7 +44,10 @@ class Api {
   setUserInfo(inputValuesObject) {
     return fetch(this._baseUrl + '/users/me', {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: `${inputValuesObject.name}`,
         about: `${inputValuesObject.about}`
@@ -49,7 +60,10 @@ class Api {
   addCard(cardData) {
     return fetch(this._baseUrl + '/cards', {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: `${cardData.place}`,
         link: `${cardData.url}`
@@ -62,7 +76,10 @@ class Api {
   deleteCard(cardData) {
     return fetch(this._baseUrl + '/cards/' + cardData._id, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
     })
     .then(res => this._checkResult(res))
   };
@@ -72,7 +89,10 @@ class Api {
     let method = isLiked ? 'DELETE':'PUT';
     return fetch(this._baseUrl + '/cards/' + cardData._id + '/likes', {
       method: method,
-      headers: this._headers,
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
     })
     .then(res => this._checkResult(res))
   };
@@ -81,7 +101,10 @@ class Api {
   setUserAvatar(avatarData) {
     return fetch(this._baseUrl + '/users/me/avatar', {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         avatar: `${avatarData.avatar}`
       })
@@ -95,12 +118,7 @@ class Api {
 
 
 const api = new Api({
-  baseUrl: 'https://api.mesto.alkorotkovv.nomoredomains.club',
-  headers: {
-    //authorization: `Bearer ${localStorage.getItem('token')}`,
-    authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzg4ODMzMDYwZGZiYzU4ZWQ2MDYwYjUiLCJpYXQiOjE2Njk5NjUxOTgsImV4cCI6MTY3MDU2OTk5OH0.IEZ0C-WTdQzhJg0JU6Pb5xZeXwdMfwRS5kEGDa3yNac`,
-    'Content-Type': 'application/json'
-  }
+  baseUrl: 'https://api.mesto.alkorotkovv.nomoredomains.club'
 });
 
 export default api;

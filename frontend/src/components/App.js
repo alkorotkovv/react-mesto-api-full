@@ -52,6 +52,8 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
+      console.log("делаем запрос для получения всей информации")
+      console.log(localStorage.getItem('token'))
       Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userInfo, initialCards]) => {
         //console.log(userInfo)
@@ -76,7 +78,10 @@ function App() {
   }
 
   function checkToken() {
+    console.log("чектокен")
     if (localStorage.getItem('token')) {
+      console.log("checkToken")
+      console.log(localStorage.getItem('token'))
       apiAuth.getUserByToken(localStorage.getItem('token'))
         .then(res => {
           console.log(res);
@@ -91,8 +96,11 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log(err);
-        })
+          console.log("shlyapa ");
+          err.then((data) => {
+            console.log(data);
+          })
+        })  
     }
   }
 
@@ -185,6 +193,7 @@ function App() {
 
   //Обработчик сабмита формы входа
   function handleLoginSubmit(email, password) {
+    console.log("логинимся")
     apiAuth.loginUser(email, password)
       .then((res) => {
         console.log(res)
@@ -200,6 +209,7 @@ function App() {
         }
       })
       .catch((err) => {
+        console.log("че то при логине случилось");
         //console.log(err);
         err.then((data) => {
           console.log(data);
